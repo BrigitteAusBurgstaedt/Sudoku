@@ -119,6 +119,49 @@ public class Main {
 
     }
 
+    // checks for correct filling of the grid
+    public static boolean isFillingCorrect() {
+
+        for(int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                for (int z = j+1; z < 9; z++) {
+
+                    // row
+                    if (grid[i][j] == grid[i][z]) {
+                        return false;
+                    }
+
+                    // column
+                    if (grid[j][i] == grid[z][i]) {
+                        return false;
+                    }
+
+                }
+            }
+        }
+
+        for(int boxRow = 0; boxRow < 9; boxRow = boxRow + 3) {
+            for (int boxColumn = 0; boxColumn < 9; boxColumn = boxColumn + 3) {
+                for (int i = 0; i < 3; i++) {
+                    for (int j = 0; j < 3; j++) {
+                        for (int k = i; k < 3; k++) {
+                            for (int l = j + 1; l < 3; l++) {
+
+                                if (grid[boxRow + i][boxColumn + j] == grid[boxRow + k][boxColumn + l]) {
+                                    return false;
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return true;
+
+    }
+
     // checks for game end
     public static boolean isEnd() {
         int x = 0;
@@ -129,10 +172,7 @@ public class Main {
                 }
             }
         }
-        if (x == 81) {
-            return true;
-        }
-        return false;
+        return x == 81;
     }
 
     public static void print() {
